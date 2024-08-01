@@ -4,6 +4,20 @@ import { LoginUserUseCase } from "../useCases/LoginUserUseCase";
 const jwt = require('jsonwebtoken');
 
 
+export class JWTTesteController {
+    async handle(req: Request, res: Response) {
+        
+        const result: { status: string; mensagem: string; } = {
+            status: "sucesso",
+            mensagem: "JWT válido, acesso permitido"
+        };
+
+        return res.status(201).json(result);
+    }
+}
+
+
+
 export class LoginUserController {
     async handle(req: Request, res: Response) {
         
