@@ -43,7 +43,7 @@ model Usuario {
   idEmpresa           Int?
   nome                String
   senha               String
-  email               String
+  email               String          @unique
   roles               Int
   cpf                 String
   quantidadeDeCompras Int?

@@ -3,7 +3,6 @@ import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 import { routes } from './routes';
 import { AppError } from "./errors/AppErrors";
-import { informativo } from "./middlewares";
 
 
 const app = express();
@@ -39,17 +38,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 
 
-
 // Inicializa o servidor na porta da variavel de ambiente SERVER_PORT
 app.listen(process.env.SERVER_PORT, () => {
   console.log('= = = = = = = = = = = = = = = = = = = =');
   console.log('Server is running on http://localhost:' + process.env.SERVER_PORT);
   console.log('= = = = = = = = = = = = = = = = = = = =');
-});
-
-
-
-// Rota para testar o servidor
-app.get('/', informativo, (req, res) => {
-  res.send('API - Sistema de Vendas');
 });
