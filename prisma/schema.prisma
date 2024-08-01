@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+
+
+model Roles {
+  id                Int                @id @default(autoincrement())
+  nome              String
+
+  Usuario Usuario[]
+  
+  @@map("roles")
+}
+
+
+model Empresa {
+  id              Int         @id @default(autoincrement())
+  nome            String
+  tipoDocumento   String
+  numeroDocumento String      @unique
+  cep             String?
+  endereco        String?
+  cidade          String?
+  estado          String?
+
+  Usuario Usuario[]
+
+  @@map("empresa")
+}
+
+
+model Usuario {
+  id                  Int             @id @default(autoincrement())
+  idEmpresa           Int
+  nome                String
+  senha               String
+  email               String
+  roles               Int
+  cpf                 String
+  quantidadeDeCompras Int?
+
+  empresa           Empresa           @relation(fields: [idEmpresa], references: [id])
+  role              Roles             @relation(fields: [roles], references: [id])
+
+  VendaCliente Venda[] @relation(name: "VendaCliente")
+  VendaFuncionario Venda[] @relation(name: "VendaFuncionario")
+
+  @@map("usuario")
+}
+
+
+model Produto {
+  id                Int         @id @default(autoincrement())
+  nome              String
+  preco             Float
+  descricao         String
+  quantidade        Int
+  dataDeFabricacao  DateTime?
+  dataDeValidade    DateTime?
+
+  ProdutoVenda ProdutoVenda[]
+  
+  @@map("produto")
+}
+
+
+
+model Venda {
+  id              Int         @id @default(autoincrement())
+  idUsuario       Int
+  idCliente       Int
+  precoTotal      Float
+  parcelas        Int?
+  precoParcelado  Float?
+  codigoDesconto  String?
+
+  Funcionario Usuario @relation(name: "VendaFuncionario", fields: [idUsuario], references: [id])
+  Cliente Usuario @relation(name: "VendaCliente", fields: [idCliente], references: [id])
+
+  ProdutoVenda ProdutoVenda[]
+
+  @@map("venda")
+}
+
+
+model ProdutoVenda {
+  id          Int     @id @default(autoincrement())
+  idVenda     Int
+  idProduto   Int
+  quantidade  Float
+
+  Venda   Venda   @relation(fields: [idVenda], references: [id])
+  Produto Produto @relation(fields: [idProduto], references: [id])
+
+  @@map("produto_venda")
+}
