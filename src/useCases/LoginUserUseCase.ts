@@ -13,7 +13,7 @@ export class LoginUserUseCase{
             select: {
                 nome: true,
                 senha: true,
-                role: true
+                roles: true
             }
         }) as any;
 

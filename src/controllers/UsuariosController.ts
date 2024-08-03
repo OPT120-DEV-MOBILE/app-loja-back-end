@@ -49,13 +49,13 @@ export class RegisterUserController {
         
         const registerUserUseCase = new RegisterUserUseCase();
 
-        const { email } = req.body;
+        const { nome, email, cpf, roles, idEmpresa } = req.body;
 
         let { senha } = req.body;
 
         senha = await bcrypt.hash(senha, 8);
         
-        const result = await registerUserUseCase.execute( {email, senha} ) as any;
+        const result = await registerUserUseCase.execute( { nome, email, senha, cpf, roles, idEmpresa } ) as any;
         
         result.status = "sucesso"
         result.mensagem = "Login efetuado com sucesso!"

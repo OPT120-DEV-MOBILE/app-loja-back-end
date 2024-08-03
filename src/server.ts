@@ -4,6 +4,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { routes } from './routes';
 import { AppError } from "./errors/AppErrors";
 
+require('dotenv').config()
 
 const app = express();
 
