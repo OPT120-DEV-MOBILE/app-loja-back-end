@@ -13,7 +13,12 @@ export class GetAllUserUseCase {
                     email: true,
                     cpf: true,
                     role: true,
-                    empresa: true
+                    empresa: {
+                        select: {
+                            id: true,
+                            nome: true
+                        }
+                    }
                 }
             }
         );
