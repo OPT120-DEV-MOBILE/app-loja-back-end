@@ -19,15 +19,15 @@ CREATE TABLE "empresa" (
 -- CreateTable
 CREATE TABLE "usuario" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "idEmpresa" INTEGER NOT NULL,
+    "idEmpresa" INTEGER,
     "nome" TEXT NOT NULL,
     "senha" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "roles" INTEGER NOT NULL,
     "cpf" TEXT NOT NULL,
-    "quantidadeDeCompras" INTEGER,
-    CONSTRAINT "usuario_idEmpresa_fkey" FOREIGN KEY ("idEmpresa") REFERENCES "empresa" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "usuario_roles_fkey" FOREIGN KEY ("roles") REFERENCES "roles" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "quantidadeDeCompras" INTEGER DEFAULT 0,
+    CONSTRAINT "usuario_roles_fkey" FOREIGN KEY ("roles") REFERENCES "roles" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "usuario_idEmpresa_fkey" FOREIGN KEY ("idEmpresa") REFERENCES "empresa" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -65,4 +65,10 @@ CREATE TABLE "produto_venda" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "roles_nome_key" ON "roles"("nome");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "empresa_numeroDocumento_key" ON "empresa"("numeroDocumento");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "usuario_email_key" ON "usuario"("email");
