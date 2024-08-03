@@ -3,6 +3,7 @@ import { LoginUserUseCase } from "../useCases/LoginUserUseCase";
 import bcrypt from 'bcrypt';
 import { RegisterUserUseCase } from "../useCases/RegisterUserUseCase";
 import { UpdateUserUseCase } from "../useCases/UpdateUserUseCase";
+import { GetAllUserUseCase } from "../useCases/GetAllUserUseCase";
 
 const jwt = require('jsonwebtoken');
 
@@ -89,5 +90,14 @@ export class UpdateUserController {
         result.mensagem = "Usuário atualizado com sucesso!"
         
         return res.status(201).json(result);
+    }
+}
+
+export class GetAllUserController {
+    async handle(req: Request, res: Response) {
+        
+        const getAllUserUseCase = new GetAllUserUseCase();
+
+        return res.status(201).json(await getAllUserUseCase.execute());
     }
 }

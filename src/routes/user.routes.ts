@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { informativo } from "../middlewares";
-import { JWTTesteController, LoginUserController, RegisterUserController, UpdateUserController } from "../controllers/UsuariosController";
+import { GetAllUserController, JWTTesteController, LoginUserController, RegisterUserController, UpdateUserController } from "../controllers/UsuariosController";
 import { verificaJWT } from "../middlewares/verificaJWT";
 
 
@@ -9,6 +9,7 @@ const jwttesteController  = new JWTTesteController();
 const loginUserController  = new LoginUserController();
 const registerUserController  = new RegisterUserController();
 const updateUserController  = new UpdateUserController();
+const getAllUserController = new GetAllUserController();
 const userRoutes = Router();
 
 
@@ -23,5 +24,7 @@ userRoutes.post('/register', informativo, registerUserController.handle);
 
 //Rota para atualizar um usuário
 userRoutes.patch('/update', informativo, updateUserController.handle);
+
+userRoutes.get('/', informativo, getAllUserController.handle);
 
 export { userRoutes };
