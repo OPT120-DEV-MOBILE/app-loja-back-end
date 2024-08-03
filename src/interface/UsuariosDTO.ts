@@ -1,4 +1,4 @@
-export interface UserLoginDTO {
-    email: string;
-    senha: string;
+import { UserRegisterDTO } from "./UserRegisterDTO";
+
+export interface UserLoginDTO extends UserRegisterDTO {
 }

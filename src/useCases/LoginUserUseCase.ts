@@ -1,6 +1,7 @@
 import { AppError } from "../errors/AppErrors";
 import { UserLoginDTO } from "../interface/UsuariosDTO";
 import { prisma } from "../prisma/client";
+import bcrypt from 'bcrypt';
 
 export class LoginUserUseCase{
     async execute({ email, senha }: UserLoginDTO): Promise<Object>{
@@ -21,7 +22,7 @@ export class LoginUserUseCase{
             throw new AppError('Email Errado');
         }
 
-        if(users.senha != senha){
+        if(!await bcrypt.compare(senha, users.senha)){
             console.log('Senha errada');
             throw new AppError('Senha Errada');
         }
