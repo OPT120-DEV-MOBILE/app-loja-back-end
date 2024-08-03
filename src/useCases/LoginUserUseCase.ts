@@ -13,8 +13,9 @@ export class LoginUserUseCase{
             select: {
                 nome: true,
                 senha: true,
+                role: true
             }
-        });
+        }) as any;
 
 
         if(!users){
@@ -27,9 +28,11 @@ export class LoginUserUseCase{
             throw new AppError('Senha Errada');
         }
 
+        delete users.senha;
+
         console.log("Login realizado com sucesso!");
 
 
-        return {};
+        return users;
     }
 }
