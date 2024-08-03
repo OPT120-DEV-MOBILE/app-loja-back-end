@@ -93,11 +93,21 @@ export class UpdateUserController {
     }
 }
 
+
+
 export class GetAllUserController {
     async handle(req: Request, res: Response) {
         
         const getAllUserUseCase = new GetAllUserUseCase();
 
-        return res.status(201).json(await getAllUserUseCase.execute());
+        const usuarios =  await getAllUserUseCase.execute() as any;
+
+        const result = {
+            "status": "sucesso",
+            "mensagem": "Usuários encontrados com sucesso!",
+            "usuarios": usuarios
+        }
+
+        return res.status(201).json(result);
     }
 }

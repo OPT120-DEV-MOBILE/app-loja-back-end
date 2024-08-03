@@ -3,8 +3,17 @@ import { GetAllRolesUseCase } from "../useCases/GetAllRolesUseCase";
 
 
 export class GetAllRolesController{
-    async handle(req: Request, response: Response){
+    async handle(req: Request, res: Response){
         const getAllRoles = new GetAllRolesUseCase();
-        return response.json(await getAllRoles.execute());
+
+        const roles = await getAllRoles.execute() as any;
+
+        const result = {
+            "status": "sucesso",
+            "mensagem": "Cargos encontrados com sucesso!",
+            "roles": roles
+        }
+
+        return res.status(201).json(result);
     }
 }

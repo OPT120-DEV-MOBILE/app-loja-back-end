@@ -13,8 +13,8 @@ datasource db {
 
 
 model Roles {
-  id                Int                @id @default(autoincrement())
-  nome              String
+  id                Int               @id @default(autoincrement())
+  nome              String            @unique
 
   Usuario Usuario[]
   

@@ -2,7 +2,9 @@ import { prisma } from "../prisma/client";
 
 export class GetAllEmpresasUseCase{
     async execute(): Promise<Object>{
+
+        const empresas = await prisma.empresa.findMany();
         
-        return await prisma.empresas.findMany();
+        return empresas;
     }
 }
