@@ -12,6 +12,7 @@ export class GetAllUserUseCase {
                     nome: true,
                     email: true,
                     cpf: true,
+                    quantidadeDeCompras: true,
                     role: true,
                     empresa: {
                         select: {
