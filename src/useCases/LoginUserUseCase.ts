@@ -29,6 +29,6 @@ export class LoginUserUseCase{
         console.log("Login realizado com sucesso!");
 
 
-        return users;
+        return {};
     }
 }
