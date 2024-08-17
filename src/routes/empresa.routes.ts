@@ -21,7 +21,7 @@ empresaRoute.post('/register', informativo, verificaJWT, registerEmpresaControll
 empresaRoute.patch('/update', informativo, verificaJWT, updateEmpresaController.handle);
 
 // Rota para deletar uma empresa
-empresaRoute.delete('/delete', informativo, deleteEmpresaController.handle);
+empresaRoute.delete('/delete', informativo, verificaJWT, deleteEmpresaController.handle);
 
 
 export { empresaRoute };

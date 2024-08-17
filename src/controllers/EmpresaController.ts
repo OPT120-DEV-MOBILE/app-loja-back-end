@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { GetAllEmpresasUseCase } from "../useCases/GetAllEmpresaUseCase";
-import { RegisterEmpresaUseCase } from "../useCases/registerEmpresaUseCase";
+import { RegisterEmpresaUseCase } from "../useCases/RegisterEmpresaUseCase";
 import { UpdateEmpresaUseCase } from "../useCases/UpdateEmpresaUseCase";
 import { DeleteEmpresaUseCase } from "../useCases/DeleteEmpresaUseCase";
 

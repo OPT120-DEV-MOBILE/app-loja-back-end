@@ -20,7 +20,13 @@ export class UpdateEmpresaUseCase{
 
         empresa = await prisma.empresa.findFirst({
             where: {
-                numeroDocumento
+                AND: {
+                    numeroDocumento,
+                    NOT:{
+                        id
+                    }
+                }
+
             }
         }) as any;
 
