@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import { RegisterUserUseCase } from "../useCases/RegisterUserUseCase";
 import { UpdateUserUseCase } from "../useCases/UpdateUserUseCase";
 import { GetAllUserUseCase } from "../useCases/GetAllUserUseCase";
+import { GetUserUseCase } from "../useCases/GetUserUseCase";
 
 const jwt = require('jsonwebtoken');
 
@@ -106,6 +107,27 @@ export class GetAllUserController {
             "status": "sucesso",
             "mensagem": "Usuários encontrados com sucesso!",
             "usuarios": usuarios
+        }
+
+        return res.status(201).json(result);
+    }
+}
+
+
+
+export class GetUserController {
+    async handle(req: Request, res: Response) {
+        
+        const getUserUseCase = new GetUserUseCase();
+
+        const { cpf } = req.query;
+
+        const usuario =  await getUserUseCase.execute(cpf?.toString() ?? '') as any;
+
+        const result = {
+            "status": "sucesso",
+            "mensagem": "Usuário encontrado com sucesso!",
+            "usuarios": usuario
         }
 
         return res.status(201).json(result);
