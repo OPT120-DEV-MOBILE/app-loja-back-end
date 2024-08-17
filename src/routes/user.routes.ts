@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { informativo } from "../middlewares";
-import { GetAllUserController, JWTTesteController, LoginUserController, RegisterUserController, UpdateUserController } from "../controllers/UsuariosController";
+import { GetAllUserController, GetUserController, JWTTesteController, LoginUserController, RegisterUserController, UpdateUserController } from "../controllers/UsuariosController";
 import { verificaJWT } from "../middlewares/verificaJWT";
 
 
@@ -10,6 +10,7 @@ const loginUserController  = new LoginUserController();
 const registerUserController  = new RegisterUserController();
 const updateUserController  = new UpdateUserController();
 const getAllUserController = new GetAllUserController();
+const getUserController = new GetUserController();
 const userRoutes = Router();
 
 
@@ -27,5 +28,8 @@ userRoutes.patch('/update', informativo, updateUserController.handle);
 
 // Rota para listar todos os usuários
 userRoutes.get('/', informativo, getAllUserController.handle);
+
+// Rota para listar todos os usuários
+userRoutes.get('/getUser', informativo, getUserController.handle);
 
 export { userRoutes };

@@ -20,5 +20,7 @@ routes.use('/empresas', empresaRoute);
 
 routes.use('/roles', roleRouter);
 
+routes.use('/vendas', userRoutes);
+
 
 export { routes };
