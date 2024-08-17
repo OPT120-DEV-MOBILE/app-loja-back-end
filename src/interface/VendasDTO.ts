@@ -36,7 +36,6 @@ export interface UpdateVenda{
 
 
 // Interface para deletar uma empresa
-export interface DeleteVenda{
+export interface DeleteVendaDTO{
     id: number;
-    numeroDocumento: string;
 }

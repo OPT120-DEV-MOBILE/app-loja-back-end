@@ -6,6 +6,7 @@ import { UpdateUserUseCase } from "../useCases/UpdateUserUseCase";
 import { GetAllUserUseCase } from "../useCases/GetAllUserUseCase";
 import { GetUserUseCase } from "../useCases/GetUserUseCase";
 import { RegisterVendaUseCase } from "../useCases/vendas/RegisterVendaUseCase";
+import { DeleteVendaUseCase } from "../useCases/vendas/DeleteVendaUseCase";
 
 const jwt = require('jsonwebtoken');
 
@@ -59,15 +60,11 @@ export class UpdateVendaController {
 export class DeleteVendaController {
     async handle(req: Request, res: Response) {
         
-        const registerUserUseCase = new RegisterUserUseCase();
+        const deleteVendaUseCase = new DeleteVendaUseCase();
 
-        const { nome, email, cpf, roles, idEmpresa } = req.body;
-
-        let { senha } = req.body;
-
-        senha = await bcrypt.hash(senha, 8);
+        const { id } = req.query;
         
-        const result = await registerUserUseCase.execute( { nome, email, senha, cpf, roles, idEmpresa } ) as any;
+        const result = await deleteVendaUseCase.execute({ id: Number(id) }) as any;
         
         result.status = "sucesso"
         result.mensagem = "Usuário cadastrado com sucesso!"
