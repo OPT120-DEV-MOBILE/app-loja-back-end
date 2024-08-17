@@ -13,8 +13,8 @@ datasource db {
 
 
 model Roles {
-  id                Int                @id @default(autoincrement())
-  nome              String
+  id                Int               @id @default(autoincrement())
+  nome              String            @unique
 
   Usuario Usuario[]
   
@@ -46,7 +46,7 @@ model Usuario {
   email               String          @unique
   roles               Int
   cpf                 String
-  quantidadeDeCompras Int?
+  quantidadeDeCompras Int?            @default(0)
 
   role              Roles             @relation(fields: [roles], references: [id])
   empresa           Empresa?          @relation(fields: [idEmpresa], references: [id])

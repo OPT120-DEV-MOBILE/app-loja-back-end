@@ -1,9 +1,9 @@
 import { prisma } from "../prisma/client";
 
-export class GetAllEmpresasUseCase{
+export class GetAllProdutosUseCase{
     async execute(): Promise<Object>{
 
-        const empresas = await prisma.empresa.findMany();
+        const empresas = await prisma.produto.findMany();
         
         return empresas;
     }

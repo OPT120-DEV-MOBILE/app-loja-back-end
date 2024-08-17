@@ -2,9 +2,12 @@ import { Request, Response } from "express";
 import { LoginUserUseCase } from "../useCases/LoginUserUseCase";
 import bcrypt from 'bcrypt';
 import { RegisterUserUseCase } from "../useCases/RegisterUserUseCase";
+import { UpdateUserUseCase } from "../useCases/UpdateUserUseCase";
 import { GetAllUserUseCase } from "../useCases/GetAllUserUseCase";
 
 const jwt = require('jsonwebtoken');
+
+
 
 
 export class JWTTesteController {
@@ -45,31 +48,66 @@ export class LoginUserController {
     }
 }
 
+
+
 export class RegisterUserController {
     async handle(req: Request, res: Response) {
         
         const registerUserUseCase = new RegisterUserUseCase();
 
-        const { email } = req.body;
+        const { nome, email, cpf, roles, idEmpresa } = req.body;
 
         let { senha } = req.body;
 
         senha = await bcrypt.hash(senha, 8);
         
-        const result = await registerUserUseCase.execute( {email, senha} ) as any;
+        const result = await registerUserUseCase.execute( { nome, email, senha, cpf, roles, idEmpresa } ) as any;
         
         result.status = "sucesso"
-        result.mensagem = "Login efetuado com sucesso!"
+        result.mensagem = "Usuário cadastrado com sucesso!"
         
         return res.status(201).json(result);
     }
 }
+
+
+
+export class UpdateUserController {
+    async handle(req: Request, res: Response) {
+        
+        const updateUserUseCase = new UpdateUserUseCase();
+
+        const { id, nome, email, cpf, roles, idEmpresa } = req.body;
+
+        let { senha } = req.body;
+
+        if(senha && senha !== '')
+            senha = await bcrypt.hash(senha, 8);
+        
+        const result = await updateUserUseCase.execute( { id, nome, email, senha, cpf, roles, idEmpresa } ) as any;
+        
+        result.status = "sucesso"
+        result.mensagem = "Usuário atualizado com sucesso!"
+        
+        return res.status(201).json(result);
+    }
+}
+
+
 
 export class GetAllUserController {
     async handle(req: Request, res: Response) {
         
         const getAllUserUseCase = new GetAllUserUseCase();
 
-        return res.status(201).json(await getAllUserUseCase.execute());
+        const usuarios =  await getAllUserUseCase.execute() as any;
+
+        const result = {
+            "status": "sucesso",
+            "mensagem": "Usuários encontrados com sucesso!",
+            "usuarios": usuarios
+        }
+
+        return res.status(201).json(result);
     }
 }

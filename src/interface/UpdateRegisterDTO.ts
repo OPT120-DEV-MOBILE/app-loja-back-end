@@ -1,4 +1,5 @@
-export interface UserRegisterDTO {
+export interface UpdateRegisterDTO {
+    id: number;
     nome: string;
     email: string;
     senha: string;

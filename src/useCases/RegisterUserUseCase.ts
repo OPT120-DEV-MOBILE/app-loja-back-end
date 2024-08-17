@@ -2,12 +2,16 @@ import { UserRegisterDTO } from "../interface/UserRegisterDTO";
 import { prisma } from "../prisma/client";
 
 export class RegisterUserUseCase{
-    async execute({ email, senha }: UserRegisterDTO): Promise<Object>{
+    async execute({ nome, email, senha, cpf, roles, idEmpresa }: UserRegisterDTO): Promise<Object>{
         
-        const users = await prisma.users.create({
+        const users = await prisma.usuario.create({
             data: {
+                nome,
                 email,
-                senha
+                senha,
+                cpf,
+                roles,
+                idEmpresa,
             }
         });
 
