@@ -45,7 +45,7 @@ model Usuario {
   senha               String
   email               String          @unique
   roles               Int
-  cpf                 String
+  cpf                 String          @unique
   quantidadeDeCompras Int?            @default(0)
 
   role              Roles             @relation(fields: [roles], references: [id])

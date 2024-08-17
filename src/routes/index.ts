@@ -23,5 +23,7 @@ routes.use('/roles', roleRouter);
 
 routes.use('/produto', produtoRoute);
 
+routes.use('/vendas', userRoutes);
+
 
 export { routes };
