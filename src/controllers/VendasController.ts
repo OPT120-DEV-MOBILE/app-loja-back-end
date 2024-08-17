@@ -1,10 +1,4 @@
 import { Request, Response } from "express";
-import { LoginUserUseCase } from "../useCases/LoginUserUseCase";
-import bcrypt from 'bcrypt';
-import { RegisterUserUseCase } from "../useCases/RegisterUserUseCase";
-import { UpdateUserUseCase } from "../useCases/UpdateUserUseCase";
-import { GetAllUserUseCase } from "../useCases/GetAllUserUseCase";
-import { GetUserUseCase } from "../useCases/GetUserUseCase";
 import { RegisterVendaUseCase } from "../useCases/vendas/RegisterVendaUseCase";
 import { DeleteVendaUseCase } from "../useCases/vendas/DeleteVendaUseCase";
 
@@ -34,24 +28,18 @@ export class RegisterVendasController {
 export class UpdateVendaController {
     async handle(req: Request, res: Response) {
         
-        const loginUserUseCase = new LoginUserUseCase();
+        const updateVendasUseCase = new UpdateVendasUserUseCase();
 
         const { email, senha } = req.body;
         
-        const result = await loginUserUseCase.execute( {email, senha} ) as any;
+        const venda = await updateVendasUseCase.execute( {email, senha} ) as any;
 
-        // Gera o token JWT
-        const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-            expiresIn: '10h'
-        });
-
-        
-        result.status = "sucesso"
-        result.mensagem = "Login efetuado com sucesso!"
-        result.JWT = token;
+                
+        venda.status = "sucesso"
+        venda.mensagem = "Venda atualizada com sucesso!"
 
 
-        return res.status(201).json(result);
+        return res.status(201).json(venda);
     }
 }
 
@@ -78,21 +66,14 @@ export class DeleteVendaController {
 export class GetAllVendasController {
     async handle(req: Request, res: Response) {
         
-        const updateUserUseCase = new UpdateUserUseCase();
-
-        const { id, nome, email, cpf, roles, idEmpresa } = req.body;
-
-        let { senha } = req.body;
-
-        if(senha && senha !== '')
-            senha = await bcrypt.hash(senha, 8);
+        const getAllVendasUseCase = new GetAllVendasUseCase();
         
-        const result = await updateUserUseCase.execute( { id, nome, email, senha, cpf, roles, idEmpresa } ) as any;
+        const vendas = await getAllVendasUseCase.execute() as any;
         
-        result.status = "sucesso"
-        result.mensagem = "Usuário atualizado com sucesso!"
+        vendas.status = "sucesso"
+        vendas.mensagem = "Vendas listadas com sucesso!"
         
-        return res.status(201).json(result);
+        return res.status(201).json(vendas);
     }
 }
 
@@ -101,37 +82,33 @@ export class GetAllVendasController {
 export class GetVendaController {
     async handle(req: Request, res: Response) {
         
-        const getAllUserUseCase = new GetAllUserUseCase();
+        const getVendaUseCase = new GetVendaUseCase();
 
-        const usuarios =  await getAllUserUseCase.execute() as any;
+        const { id } = req.body;
 
-        const result = {
-            "status": "sucesso",
-            "mensagem": "Usuários encontrados com sucesso!",
-            "usuarios": usuarios
-        }
+        const venda =  await getVendaUseCase.execute() as any;
 
-        return res.status(201).json(result);
+        venda.status = "sucesso"
+        venda.mensagem = "Venda lida com sucesso!"
+
+        return res.status(201).json(venda);
     }
 }
 
 
 
-export class GetVendaUserController {
+export class GetVendasUserController {
     async handle(req: Request, res: Response) {
         
-        const getUserUseCase = new GetUserUseCase();
+        const getVendasUserUseCase = new GetVendasUserUseCase();
 
         const { cpf } = req.body;
 
-        const usuario =  await getUserUseCase.execute(cpf) as any;
+        const venda =  await getVendasUserUseCase.execute( cpf ) as any;
 
-        const result = {
-            "status": "sucesso",
-            "mensagem": "Usuário encontrado com sucesso!",
-            "usuarios": usuario
-        }
+        venda.status = "sucesso"
+        venda.mensagem = "Vendas listadas com sucesso!"
 
-        return res.status(201).json(result);
+        return res.status(201).json(venda);
     }
 }
