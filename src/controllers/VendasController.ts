@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { RegisterVendaUseCase } from "../useCases/vendas/RegisterVendaUseCase";
 import { DeleteVendaUseCase } from "../useCases/vendas/DeleteVendaUseCase";
+import { UpdateVendasUseCase } from "../useCases/vendas/UpdateVendaUseCase";
 
 const jwt = require('jsonwebtoken');
 
@@ -28,11 +29,11 @@ export class RegisterVendasController {
 export class UpdateVendaController {
     async handle(req: Request, res: Response) {
         
-        const updateVendasUseCase = new UpdateVendasUserUseCase();
+        const updateVendasUseCase = new UpdateVendasUseCase();
 
-        const { email, senha } = req.body;
+        const { id, precoTotal, parcelas, precoParcelado, codigoDesconto, produtos } = req.body;
         
-        const venda = await updateVendasUseCase.execute( {email, senha} ) as any;
+        const venda = await updateVendasUseCase.execute( {id, precoTotal, parcelas, precoParcelado, codigoDesconto, produtos} ) as any;
 
                 
         venda.status = "sucesso"
