@@ -60,6 +60,34 @@ async function main() {
   ];
 
 
+  const produtos = [
+    {
+      nome: 'Produto 1',
+      preco: 100.00,
+      descricao: 'Produto 1 descricao',
+      quantidade: 100,
+      dataDeFabricacao: new Date(),
+      dataDeValidade: new Date(),
+    },
+    {
+      nome: 'Produto 2',
+      preco: 129.99,
+      descricao: 'Produto 2 descricao',
+      quantidade: 80,
+      dataDeFabricacao: new Date(),
+      dataDeValidade: new Date(),
+    },
+    {
+      nome: 'Produto 3',
+      preco: 49.99,
+      descricao: 'Produto 3 descricao',
+      quantidade: 300,
+      dataDeFabricacao: new Date(),
+      dataDeValidade: new Date(),
+    }
+  ];
+
+
 
   for (const role of roles) {
     await prisma.roles.create({
@@ -76,6 +104,12 @@ async function main() {
   for (const empresa of empresas) {
     await prisma.empresa.create({
       data: empresa,
+    });
+  }
+
+  for (const produto of produtos) {
+    await prisma.produto.create({
+      data: produto,
     });
   }
 

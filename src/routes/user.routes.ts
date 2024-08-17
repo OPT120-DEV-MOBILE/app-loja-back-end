@@ -21,15 +21,15 @@ userRoutes.get('/JWTteste', informativo, verificaJWT, jwttesteController.handle)
 userRoutes.post('/login', informativo, loginUserController.handle);
 
 // Rota para registrar um novo usuário
-userRoutes.post('/register', informativo, registerUserController.handle);
+userRoutes.post('/register', informativo, verificaJWT, registerUserController.handle);
 
 // Rota para atualizar um usuário
-userRoutes.patch('/update', informativo, updateUserController.handle);
+userRoutes.patch('/update', informativo, verificaJWT, updateUserController.handle);
 
 // Rota para listar todos os usuários
-userRoutes.get('/', informativo, getAllUserController.handle);
+userRoutes.get('/', informativo, verificaJWT, getAllUserController.handle);
 
 // Rota para listar todos os usuários
-userRoutes.get('/getUser', informativo, getUserController.handle);
+userRoutes.get('/getUser', informativo, verificaJWT, getUserController.handle);
 
 export { userRoutes };

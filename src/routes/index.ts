@@ -3,6 +3,7 @@ import { userRoutes } from "./user.routes";
 import { informativo } from "../middlewares";
 import { empresaRoute } from "./empresa.routes";
 import { roleRouter } from "./roles.routes";
+import { vendaRoutes } from "./vendas.routes";
 
 
 const routes = Router();
@@ -20,7 +21,7 @@ routes.use('/empresas', empresaRoute);
 
 routes.use('/roles', roleRouter);
 
-routes.use('/vendas', userRoutes);
+routes.use('/vendas', vendaRoutes);
 
 
 export { routes };
