@@ -11,6 +11,7 @@ export class LoginUserUseCase{
                 email
             },
             select: {
+                id: true,
                 nome: true,
                 senha: true,
                 roles: true

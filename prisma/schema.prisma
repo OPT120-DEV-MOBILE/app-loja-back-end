@@ -93,10 +93,11 @@ model Venda {
 
 
 model ProdutoVenda {
-  id          Int     @id @default(autoincrement())
-  idVenda     Int
-  idProduto   Int
-  quantidade  Float
+  id            Int     @id @default(autoincrement())
+  idVenda       Int
+  idProduto     Int
+  precoProduto  Float
+  quantidade    Int
 
   Venda   Venda   @relation(fields: [idVenda], references: [id])
   Produto Produto @relation(fields: [idProduto], references: [id])
