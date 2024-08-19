@@ -1,45 +1,26 @@
 import { prisma } from "../../prisma/client";
 
-export class GetOneVendaUseCase {
-  async execute(id: number): Promise<Object> {
-    const venda = await prisma.venda.findUnique({
-      where: {
-        id: id,
-      },
-      include: {
-        ProdutoVenda: {
-            include: {
-                Produto: true,
+export class GetAllVendaUseCase{
+    async execute(): Promise<Object> {
+        const vendas = await prisma.venda.findMany({
+          include: {
+            Funcionario: {
+              select: {
+                id: true,
+                nome: true,
+                email: true,
+              }
             },
-        },
-        Funcionario: {
-                select: {
-                id: true,
-                nome: true,
-                email: true,
-            }
-        },
             Cliente: {
-                select: {
+              select: {
                 id: true,
                 nome: true,
                 email: true,
-                cpf: true,
+              }
             }
-        }
-      },
-    }) as any;
-
-    if (!venda) {
-        throw new Error("Erro ao buscar a venda!");
+          }
+        });
+    
+        return vendas;
     }
-  
-    const { idUsuario, idCliente, ...vendaSemIds } = venda;
-
-    return {
-        ...vendaSemIds,
-        Funcionario: venda.Funcionario,
-        Cliente: venda.Cliente,
-    };
-  }
 }

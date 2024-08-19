@@ -2,14 +2,11 @@ import { Request, Response } from "express";
 import { RegisterVendaUseCase } from "../useCases/vendas/RegisterVendaUseCase";
 import { DeleteVendaUseCase } from "../useCases/vendas/DeleteVendaUseCase";
 import { UpdateVendasUseCase } from "../useCases/vendas/UpdateVendaUseCase";
-import { GetAllVendaUseCase } from "../useCases/vendas/GetOneVendaUseCase";
-import { GetOneVendaUseCase } from "../useCases/vendas/GetAllVendaUseCase";
+import { GetOneVendaUseCase } from "../useCases/vendas/GetOneVendaUseCase";
+import { GetAllVendaUseCase } from "../useCases/vendas/GetAllVendaUseCase";
 import { GetVendasUserUseCase } from "../useCases/vendas/GetVendasUserUseCase";
 
 const jwt = require('jsonwebtoken');
-
-
-
 
 export class RegisterVendasController {
     async handle(req: Request, res: Response) {
