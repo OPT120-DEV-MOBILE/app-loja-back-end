@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import { RegisterVendaUseCase } from "../useCases/vendas/RegisterVendaUseCase";
 import { DeleteVendaUseCase } from "../useCases/vendas/DeleteVendaUseCase";
 import { UpdateVendasUseCase } from "../useCases/vendas/UpdateVendaUseCase";
-import { GetAllVendasUseCase } from "../useCases/vendas/GetAllVendasUseCase";
+import { GetAllVendaUseCase } from "../useCases/vendas/GetOneVendaUseCase";
+import { GetOneVendaUseCase } from "../useCases/vendas/GetAllVendaUseCase";
+import { GetVendasUserUseCase } from "../useCases/vendas/GetVendasUserUseCase";
 
 const jwt = require('jsonwebtoken');
 
@@ -68,7 +70,7 @@ export class DeleteVendaController {
 export class GetAllVendasController {
     async handle(req: Request, res: Response) {
         
-        const getAllVendasUseCase = new GetAllVendasUseCase();
+        const getAllVendasUseCase = new GetAllVendaUseCase();
         
         const vendas = await getAllVendasUseCase.execute() as any;
         
@@ -84,11 +86,15 @@ export class GetAllVendasController {
 export class GetVendaController {
     async handle(req: Request, res: Response) {
         
-        const getVendaUseCase = new GetVendaUseCase();
+        const getVendaUseCase = new GetOneVendaUseCase();
 
-        const { id } = req.body;
+        const { id } = req.query;
 
-        const venda =  await getVendaUseCase.execute() as any;
+        if (!id) {
+            return res.status(400).json({ message: "ID não fornecido" });
+        }
+
+        const venda =  await getVendaUseCase.execute(Number(id)) as any;
 
         venda.status = "sucesso"
         venda.mensagem = "Venda lida com sucesso!"
