@@ -99,7 +99,7 @@ model ProdutoVenda {
   precoProduto  Float
   quantidade    Int
 
-  Venda   Venda   @relation(fields: [idVenda], references: [id])
+  Venda   Venda   @relation(fields: [idVenda], references: [id], onDelete: Cascade)
   Produto Produto @relation(fields: [idProduto], references: [id])
 
   @@map("produto_venda")
