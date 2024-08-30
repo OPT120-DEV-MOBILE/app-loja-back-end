@@ -1,5 +1,5 @@
-import { DeleteEmpresa } from "../interface/EmpresasDTO";
-import { prisma } from "../prisma/client";
+import { DeleteEmpresa } from "../../interface/EmpresasDTO";
+import { prisma } from "../../prisma/client";
 
 
 

@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { GetAllEmpresasUseCase } from "../useCases/GetAllEmpresaUseCase";
-import { RegisterEmpresaUseCase } from "../useCases/RegisterEmpresaUseCase";
-import { UpdateEmpresaUseCase } from "../useCases/UpdateEmpresaUseCase";
-import { DeleteEmpresaUseCase } from "../useCases/DeleteEmpresaUseCase";
+import { GetAllEmpresasUseCase } from "../useCases/empresas/GetAllEmpresaUseCase";
+import { RegisterEmpresaUseCase } from "../useCases/empresas/RegisterEmpresaUseCase";
+import { UpdateEmpresaUseCase } from "../useCases/empresas/UpdateEmpresaUseCase";
+import { DeleteEmpresaUseCase } from "../useCases/empresas/DeleteEmpresaUseCase";
+import { SearchEmpresaUseCase } from "../useCases/empresas/SearchEmpresaUseCase";
 
 
 
@@ -80,6 +81,27 @@ export class DeleteEmpresaController{
             "status": "sucesso",
             "mensagem": "Empresa Deletada com sucesso!",
             "empresa": empresa
+        }
+
+        return res.status(201).json(result);
+    }
+}
+
+
+
+export class SearchEmpresaController{
+    async handle(req: Request, res: Response){
+
+        const searchEmpresasUseCase = new SearchEmpresaUseCase();
+
+        const { nome } = req.query;
+        const empresas = await searchEmpresasUseCase.execute({ nome: String(nome) }) as any;
+
+
+        const result = {
+            "status": "sucesso",
+            "mensagem": "Empresas encontradas com: " + nome,
+            "empresa": empresas
         }
 
         return res.status(201).json(result);

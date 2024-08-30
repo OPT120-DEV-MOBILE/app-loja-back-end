@@ -32,3 +32,9 @@ export interface DeleteEmpresa{
     id: number;
     numeroDocumento: string;
 }
+
+
+// Interface para procurar uma empresa
+export interface SearchEmpresa{
+    nome: string;
+}

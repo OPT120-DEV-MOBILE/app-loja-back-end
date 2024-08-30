@@ -1,5 +1,5 @@
-import { NovaEmpresa } from "../interface/EmpresasDTO";
-import { prisma } from "../prisma/client";
+import { NovaEmpresa } from "../../interface/EmpresasDTO";
+import { prisma } from "../../prisma/client";
 
 
 

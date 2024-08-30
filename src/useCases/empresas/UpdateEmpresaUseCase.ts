@@ -1,5 +1,5 @@
-import { UpdateEmpresa } from "../interface/EmpresasDTO";
-import { prisma } from "../prisma/client";
+import { UpdateEmpresa } from "../../interface/EmpresasDTO";
+import { prisma } from "../../prisma/client";
 
 
 export class UpdateEmpresaUseCase{
