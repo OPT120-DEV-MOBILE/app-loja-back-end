@@ -1,5 +1,5 @@
 import { prisma } from "../prisma/client";
-import { ProdutoUpdateDTO } from "../interface/ProdutoUpdateDTO";
+import { ProdutoUpdateDTO } from "../interface/ProdutosDTO";
 
 export class UpdateProdutosUseCase{
     async execute({id, nome, preco, descricao, quantidade, dataDeFabricacao, dataDeValidade}: ProdutoUpdateDTO): Promise<Object>{

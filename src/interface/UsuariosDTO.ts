@@ -6,7 +6,7 @@ export interface UserLoginDTO {
 
 
 export interface SearchUserDTO {
-    nome: string
+    usuario: any;
 }
 
 

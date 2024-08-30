@@ -2,9 +2,9 @@ import { SearchUserDTO } from "../interface/UsuariosDTO";
 import { prisma } from "../prisma/client";
 
 export class GetAllUserUseCase {
-    async execute({ nome }: SearchUserDTO): Promise<Object>{
+    async execute({ usuario }: SearchUserDTO): Promise<Object>{
         
-        const id = Number(nome);
+        const id = Number(usuario);
 
         if(id){
             
@@ -32,8 +32,10 @@ export class GetAllUserUseCase {
             if(usuarios.length !== 0)
                 return usuarios;
         }
-         
         
+        
+
+        const nome = String(usuario);
 
         console.log("Buscando os usuários com nome: ", nome);
         

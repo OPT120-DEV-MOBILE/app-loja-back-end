@@ -1,6 +1,5 @@
-import { Produto } from "@prisma/client";
-import { ProdutoCreateDTO } from "../interface/ProdutoCreateDTO";
 import { prisma } from "../prisma/client";
+import { ProdutoCreateDTO } from "../interface/ProdutosDTO";
 
 export class CreateProdutosUseCase{
     async execute({nome, preco, descricao, quantidade, dataDeFabricacao, dataDeValidade}: ProdutoCreateDTO): Promise<Object>{

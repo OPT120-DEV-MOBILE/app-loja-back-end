@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import { GetAllProdutosUseCase } from "../useCases/GetAllProdutoUseCase";
 import { Produto } from "@prisma/client";
 import { GetOneProdutosUseCase } from "../useCases/GetOneProdutoUseCase";
-import { ProdutoCreateDTO } from "../interface/ProdutoCreateDTO";
-import { ProdutoUpdateDTO } from "../interface/ProdutoUpdateDTO";
+import { ProdutoCreateDTO, ProdutoUpdateDTO } from "../interface/ProdutosDTO";
 import { CreateProdutosUseCase } from "../useCases/createProdutoUseCase";
 import { UpdateProdutosUseCase } from "../useCases/updateProdutoUseCase";
 import { DeleteProdutosUseCase } from "../useCases/deleteProdutoUseCase";
@@ -13,7 +12,9 @@ export class GetAllProdutosController{
     async handle(req: Request, res: Response){
         const getAllProdutos = new GetAllProdutosUseCase();
 
-        const Produtos = await getAllProdutos.execute() as Produto;
+        const { produto } = req.query;
+
+        const Produtos = await getAllProdutos.execute({ produto }) as Produto;
 
         const result = {
             "status": "sucesso",

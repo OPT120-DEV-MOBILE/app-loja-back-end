@@ -101,8 +101,8 @@ export class GetAllUserController {
         
         const getAllUserUseCase = new GetAllUserUseCase();
 
-        const { nome } = req.query;
-        const usuarios =  await getAllUserUseCase.execute({ nome: String(nome) }) as any;
+        const { usuario } = req.query;
+        const usuarios =  await getAllUserUseCase.execute({ usuario }) as any;
 
         const result = {
             "status": "sucesso",
