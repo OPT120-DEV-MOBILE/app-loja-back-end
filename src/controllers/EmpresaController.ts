@@ -17,7 +17,7 @@ export class GetAllEmpresasController{
         
         const result = {
             "status": "sucesso",
-            "mensagem": "Empresas encontrados com sucesso!",
+            "mensagem": empresas.length === 0 ? "Nenhuma Empressa encontrada" : "Empresas encontrados com sucesso!",
             "empresas": empresas
         }
 

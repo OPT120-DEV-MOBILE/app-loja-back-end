@@ -69,12 +69,16 @@ export class GetAllVendasController {
         
         const getAllVendasUseCase = new GetAllVendaUseCase();
         
-        const vendas = await getAllVendasUseCase.execute() as any;
+        const { venda } = req.query;
+        const vendas = await getAllVendasUseCase.execute({ venda }) as any;
         
-        vendas.status = "sucesso"
-        vendas.mensagem = "Vendas listadas com sucesso!"
+        const result = {
+            "status": "sucesso",
+            "mensagem": vendas.length === 0 ? "Nenhuma venda encontrada" : "Vendas encontradas com sucesso!",
+            "vendas": vendas
+        }
         
-        return res.status(201).json(vendas);
+        return res.status(201).json(result);
     }
 }
 

@@ -1,7 +1,4 @@
 
-// Interface para Rotas de Empresas
-
-
 // Interface para criar uma nova venda
 export interface NovaVendaDTO{
     idUsuario:       number;
@@ -12,6 +9,7 @@ export interface NovaVendaDTO{
     codigoDesconto:  string;
     produtos: produtoDTO[];
 }
+
 
 // Interface para criar uma nova venda
 export interface produtoDTO{
@@ -37,4 +35,10 @@ export interface UpdateVendaDTO{
 // Interface para deletar uma empresa
 export interface DeleteVendaDTO{
     id: number;
+}
+
+
+// Interface para deletar uma empresa
+export interface SearchVendasDTO{
+    venda: any;
 }
