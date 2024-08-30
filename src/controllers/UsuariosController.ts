@@ -101,11 +101,12 @@ export class GetAllUserController {
         
         const getAllUserUseCase = new GetAllUserUseCase();
 
-        const usuarios =  await getAllUserUseCase.execute() as any;
+        const { nome } = req.query;
+        const usuarios =  await getAllUserUseCase.execute({ nome: String(nome) }) as any;
 
         const result = {
             "status": "sucesso",
-            "mensagem": "Usuários encontrados com sucesso!",
+            "mensagem": usuarios.length === 0 ? "Nenhum usuários encontrado!" : "Usuário encontrados com sucesso!",
             "usuarios": usuarios
         }
 
