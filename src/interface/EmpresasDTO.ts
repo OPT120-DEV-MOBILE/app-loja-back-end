@@ -36,5 +36,5 @@ export interface DeleteEmpresa{
 
 // Interface para procurar uma empresa
 export interface SearchEmpresa{
-    nome: string;
+    empresa: string;
 }

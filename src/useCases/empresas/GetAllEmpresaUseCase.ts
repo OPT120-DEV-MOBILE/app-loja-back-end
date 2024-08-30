@@ -3,20 +3,34 @@ import { prisma } from "../../prisma/client";
 
 
 export class GetAllEmpresasUseCase{
-    async execute({ nome }: SearchEmpresa): Promise<Object>{
+    async execute({ empresa }: SearchEmpresa): Promise<Object>{
 
-        console.log('\n\nProcurando empresas com nome: ', nome);
+        console.log('\n\nProcurando empresas com documento: ', empresa);
 
-        const empresas = await prisma.empresa.findMany({
+        let empresas = await prisma.empresa.findMany({
             where: {
-                nome: {
-                    contains: nome
+                numeroDocumento: {
+                    contains: empresa
                 }
             }
         });
 
+        if(empresas.length !== 0)
+            return empresas;
 
-        console.log('\nEmpresas encontradas que possuem \'' + nome + '\' no nome: ', empresas.length);
+        
+
+
+        console.log('\n\nProcurando empresas com nome: ', empresa);
+
+        empresas = await prisma.empresa.findMany({
+            where: {
+                nome: {
+                    contains: empresa
+                }
+            }
+        });
+
        
         return empresas;
     }

@@ -12,8 +12,8 @@ export class GetAllEmpresasController{
         const getAllEmpresas = new GetAllEmpresasUseCase();
 
 
-        const { nome } = req.query;
-        const empresas = await getAllEmpresas.execute({ nome: String(nome) }) as any;
+        const { empresa } = req.query;
+        const empresas = await getAllEmpresas.execute({ empresa: String(empresa) }) as any;
         
         const result = {
             "status": "sucesso",
