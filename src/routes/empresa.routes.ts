@@ -2,13 +2,12 @@ import { Router } from "express";
 
 import { verificaJWT } from "../middlewares/verificaJWT";
 import { informativo } from "../middlewares";
-import { DeleteEmpresaController, GetAllEmpresasController, RegisterEmpresaController, SearchEmpresaController, UpdateEmpresaController } from "../controllers/EmpresaController";
+import { DeleteEmpresaController, GetAllEmpresasController, RegisterEmpresaController, UpdateEmpresaController } from "../controllers/EmpresaController";
 
 const getAllEmpresas = new GetAllEmpresasController();
 const registerEmpresaController = new RegisterEmpresaController();
 const updateEmpresaController = new UpdateEmpresaController();
 const deleteEmpresaController = new DeleteEmpresaController();
-const searchEmpresaController = new SearchEmpresaController();
 const empresaRoute = Router();
 
 
@@ -24,8 +23,6 @@ empresaRoute.patch('/update', informativo, verificaJWT, updateEmpresaController.
 // Rota para deletar uma empresa
 empresaRoute.delete('/delete', informativo, verificaJWT, deleteEmpresaController.handle);
 
-// Rota para pesquisar uma empresa
-empresaRoute.get('/search', informativo, verificaJWT, searchEmpresaController.handle);
 
 
 export { empresaRoute };

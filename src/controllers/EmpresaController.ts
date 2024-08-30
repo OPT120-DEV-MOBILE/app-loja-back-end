@@ -3,7 +3,6 @@ import { GetAllEmpresasUseCase } from "../useCases/empresas/GetAllEmpresaUseCase
 import { RegisterEmpresaUseCase } from "../useCases/empresas/RegisterEmpresaUseCase";
 import { UpdateEmpresaUseCase } from "../useCases/empresas/UpdateEmpresaUseCase";
 import { DeleteEmpresaUseCase } from "../useCases/empresas/DeleteEmpresaUseCase";
-import { SearchEmpresaUseCase } from "../useCases/empresas/SearchEmpresaUseCase";
 
 
 
@@ -12,8 +11,10 @@ export class GetAllEmpresasController{
     async handle(req: Request, res: Response){
         const getAllEmpresas = new GetAllEmpresasUseCase();
 
-        const empresas = await getAllEmpresas.execute() as any;
 
+        const { nome } = req.query;
+        const empresas = await getAllEmpresas.execute({ nome: String(nome) }) as any;
+        
         const result = {
             "status": "sucesso",
             "mensagem": "Empresas encontrados com sucesso!",
@@ -81,27 +82,6 @@ export class DeleteEmpresaController{
             "status": "sucesso",
             "mensagem": "Empresa Deletada com sucesso!",
             "empresa": empresa
-        }
-
-        return res.status(201).json(result);
-    }
-}
-
-
-
-export class SearchEmpresaController{
-    async handle(req: Request, res: Response){
-
-        const searchEmpresasUseCase = new SearchEmpresaUseCase();
-
-        const { nome } = req.query;
-        const empresas = await searchEmpresasUseCase.execute({ nome: String(nome) }) as any;
-
-
-        const result = {
-            "status": "sucesso",
-            "mensagem": "Empresas encontradas com: " + nome,
-            "empresa": empresas
         }
 
         return res.status(201).json(result);
