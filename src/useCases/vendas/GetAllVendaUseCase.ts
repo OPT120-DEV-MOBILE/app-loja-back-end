@@ -1,149 +1,152 @@
 import { SearchVendasDTO } from "../../interface/VendasDTO";
 import { prisma } from "../../prisma/client";
 
-export class GetAllVendaUseCase{
-    async execute({ venda }: SearchVendasDTO): Promise<Object>{
-
-
-      let id = Number(venda);
-
-
-      console.log('\n\nProcurando vendas com id de funcionario: ', id);
-
-      if(id){
-        
-        const vendas = await prisma.venda.findMany({
-          where: {
-            idUsuario: id
-          },
-          include: {
-            Funcionario: {
-              select: {
-                id: true,
-                nome: true,
-                email: true,
-              }
-            },
-            Cliente: {
-              select: {
-                id: true,
-                nome: true,
-                email: true,
-              }
-            }
-          }
-        });
-        
-        if(vendas.length !== 0)
-          return vendas;
-      }
-
-
-      console.log('\n\nProcurando vendas com id de cliente: ', id);
-
-      if(id){
-        
-        const vendas = await prisma.venda.findMany({
-          where: {
-            idCliente: id
-          },
-          include: {
-            Funcionario: {
-              select: {
-                id: true,
-                nome: true,
-                email: true,
-              }
-            },
-            Cliente: {
-              select: {
-                id: true,
-                nome: true,
-                email: true,
-              }
-            }
-          }
-        });
-        
-        if(vendas.length !== 0)
-          return vendas;
-      }
-
-
-      console.log('\n\nProcurando vendas com nome do funcionario: ', venda);
-
-     const vendasFuncionarios = await prisma.venda.findMany({
-        where: {
-          Funcionario: {
-            nome:{
-              contains: String(venda)
-            }
-          }
-        },
-        include: {
-          Funcionario: {
-            select: {
-              id: true,
-              nome: true,
-              email: true,
-            }
-          },
-          Cliente: {
-            select: {
-              id: true,
-              nome: true,
-              email: true,
-            }
-          }
+export class GetAllVendaUseCase {
+    async execute({ venda }: SearchVendasDTO): Promise<Object> {
+        if (!venda || venda === "undefined") {
+            console.log('Buscando todas as vendas');
+            const vendas = await prisma.venda.findMany({
+                include: {
+                    Funcionario: {
+                        select: {
+                            id: true,
+                            nome: true,
+                            email: true,
+                        }
+                    },
+                    Cliente: {
+                        select: {
+                            id: true,
+                            nome: true,
+                            email: true,
+                        }
+                    }
+                }
+            });
+            return vendas;
         }
-      });
 
+        const id = Number(venda);
 
-      console.log('\n\nProcurando vendas com nome do cliente: ', venda);
+        if (id) {
+            console.log('Procurando vendas com ID de funcionário ou cliente: ', id);
 
-     const vendasClientes = await prisma.venda.findMany({
-        where: {
-          Cliente: {
-            nome:{
-              contains: String(venda)
+            let vendas = await prisma.venda.findMany({
+                where: {
+                    idUsuario: id
+                },
+                include: {
+                    Funcionario: {
+                        select: {
+                            id: true,
+                            nome: true,
+                            email: true,
+                        }
+                    },
+                    Cliente: {
+                        select: {
+                            id: true,
+                            nome: true,
+                            email: true,
+                        }
+                    }
+                }
+            });
+
+            if (vendas.length > 0) {
+                return vendas;
             }
-          }
-        },
-        include: {
-          Funcionario: {
-            select: {
-              id: true,
-              nome: true,
-              email: true,
+
+            vendas = await prisma.venda.findMany({
+                where: {
+                    idCliente: id
+                },
+                include: {
+                    Funcionario: {
+                        select: {
+                            id: true,
+                            nome: true,
+                            email: true,
+                        }
+                    },
+                    Cliente: {
+                        select: {
+                            id: true,
+                            nome: true,
+                            email: true,
+                        }
+                    }
+                }
+            });
+
+            if (vendas.length > 0) {
+                return vendas;
             }
-          },
-          Cliente: {
-            select: {
-              id: true,
-              nome: true,
-              email: true,
-            }
-          }
         }
-      });
 
+        const nome = String(venda);
 
-      let vendas = vendasFuncionarios;
-
-
-      vendasClientes.forEach(venda => {
-        let existe = false;
-        
-        vendas.forEach(venda2 => {
-          if(venda.id === venda2.id){
-            existe = true
-          }
+        console.log('Procurando vendas com nome do funcionário: ', nome);
+        const vendasFuncionarios = await prisma.venda.findMany({
+            where: {
+                Funcionario: {
+                    nome: {
+                        contains: nome
+                    }
+                }
+            },
+            include: {
+                Funcionario: {
+                    select: {
+                        id: true,
+                        nome: true,
+                        email: true,
+                    }
+                },
+                Cliente: {
+                    select: {
+                        id: true,
+                        nome: true,
+                        email: true,
+                    }
+                }
+            }
         });
 
-        if(!existe)
-          vendas.push(venda);
-      });
+        console.log('Procurando vendas com nome do cliente: ', nome);
+        const vendasClientes = await prisma.venda.findMany({
+            where: {
+                Cliente: {
+                    nome: {
+                        contains: nome
+                    }
+                }
+            },
+            include: {
+                Funcionario: {
+                    select: {
+                        id: true,
+                        nome: true,
+                        email: true,
+                    }
+                },
+                Cliente: {
+                    select: {
+                        id: true,
+                        nome: true,
+                        email: true,
+                    }
+                }
+            }
+        });
 
-      return vendas;
+        const vendas = [...vendasFuncionarios];
+        vendasClientes.forEach(vendaCliente => {
+            if (!vendas.some(vendaFuncionario => vendaFuncionario.id === vendaCliente.id)) {
+                vendas.push(vendaCliente);
+            }
+        });
+
+        return vendas;
     }
 }
