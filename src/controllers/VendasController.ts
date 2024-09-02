@@ -6,6 +6,7 @@ import { GetOneVendaUseCase } from "../useCases/vendas/GetOneVendaUseCase";
 import { GetAllVendaUseCase } from "../useCases/vendas/GetAllVendaUseCase";
 import { GetVendasUserUseCase } from "../useCases/vendas/GetVendasUserUseCase";
 import { relatorioVendasClienteUseCase, relatorioVendasFuncionarioUseCase, relatorioVendasUseCase } from "../useCases/relatorioVendas";
+import { RelatorioVendasDTO } from "../interface/VendasDTO";
 
 const jwt = require('jsonwebtoken');
 
@@ -128,9 +129,9 @@ export class RelatorioVendasFuncionario {
         
         const relatorioVendasFuncionario = new relatorioVendasFuncionarioUseCase();
 
-        const { cpf } = req.body;
+        const { cpf } = req.query;
 
-        const venda =  await relatorioVendasFuncionario.execute( cpf ) as any;
+        const venda =  await relatorioVendasFuncionario.execute({ cpf } as RelatorioVendasDTO) as any;
 
         venda.status = "sucesso"
         venda.mensagem = "Vendas listadas com sucesso!"
@@ -144,9 +145,9 @@ export class RelatorioVendasCliente {
         
         const relatorioVendasCliente = new relatorioVendasClienteUseCase();
 
-        const { cpf } = req.body;
+        const { cpf } = req.query;
 
-        const venda =  await relatorioVendasCliente.execute( cpf ) as any;
+        const venda =  await relatorioVendasCliente.execute({ cpf } as RelatorioVendasDTO) as any;
 
         venda.status = "sucesso"
         venda.mensagem = "Vendas listadas com sucesso!"
