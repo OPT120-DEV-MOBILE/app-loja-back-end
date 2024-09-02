@@ -42,3 +42,7 @@ export interface DeleteVendaDTO{
 export interface SearchVendasDTO{
     venda: any;
 }
+
+export interface RelatorioVendasDTO{
+    cpf: string;
+}
