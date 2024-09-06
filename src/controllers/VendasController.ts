@@ -5,6 +5,8 @@ import { UpdateVendasUseCase } from "../useCases/vendas/UpdateVendaUseCase";
 import { GetOneVendaUseCase } from "../useCases/vendas/GetOneVendaUseCase";
 import { GetAllVendaUseCase } from "../useCases/vendas/GetAllVendaUseCase";
 import { GetVendasUserUseCase } from "../useCases/vendas/GetVendasUserUseCase";
+import { relatorioVendasClienteUseCase, relatorioVendasFuncionarioUseCase, relatorioVendasUseCase } from "../useCases/relatorioVendas";
+import { RelatorioVendasDTO } from "../interface/VendasDTO";
 
 const jwt = require('jsonwebtoken');
 
@@ -114,6 +116,52 @@ export class GetVendasUserController {
         const { cpf } = req.body;
 
         const venda =  await getVendasUserUseCase.execute( cpf ) as any;
+
+        venda.status = "sucesso"
+        venda.mensagem = "Vendas listadas com sucesso!"
+
+        return res.status(201).json(venda);
+    }
+}
+
+export class RelatorioVendasFuncionario {
+    async handle(req: Request, res: Response) {
+        
+        const relatorioVendasFuncionario = new relatorioVendasFuncionarioUseCase();
+
+        const { cpf } = req.query;
+
+        const venda =  await relatorioVendasFuncionario.execute({ cpf } as RelatorioVendasDTO) as any;
+
+        venda.status = "sucesso"
+        venda.mensagem = "Vendas listadas com sucesso!"
+
+        return res.status(201).json(venda);
+    }
+}
+
+export class RelatorioVendasCliente {
+    async handle(req: Request, res: Response) {
+        
+        const relatorioVendasCliente = new relatorioVendasClienteUseCase();
+
+        const { cpf } = req.query;
+
+        const venda =  await relatorioVendasCliente.execute({ cpf } as RelatorioVendasDTO) as any;
+
+        venda.status = "sucesso"
+        venda.mensagem = "Vendas listadas com sucesso!"
+
+        return res.status(201).json(venda);
+    }
+}
+
+export class RelatorioVendas {
+    async handle(req: Request, res: Response) {
+        
+        const relatorioVendas = new relatorioVendasUseCase();
+
+        const venda =  await relatorioVendas.execute() as any;
 
         venda.status = "sucesso"
         venda.mensagem = "Vendas listadas com sucesso!"

@@ -1,39 +1,41 @@
 import { SearchProdutoDTO } from "../interface/ProdutosDTO";
 import { prisma } from "../prisma/client";
 
-export class GetAllProdutosUseCase{
-    async execute({ produto }: SearchProdutoDTO): Promise<Object>{
+export class GetAllProdutosUseCase {
+    async execute({ produto }: SearchProdutoDTO): Promise<Object> {
+
+        if (!produto || produto === "undefined") {
+            console.log("Buscando todos os produtos");
+            const produtos = await prisma.produto.findMany();
+            return produtos;
+        }
 
         const id = Number(produto);
 
-        if(id){
-            
-            console.log("Buscando os usuários com id: ", id);
+        if (!isNaN(id)) {
+            console.log("Buscando os produtos com id: ", id);
 
-            const empresas = await prisma.produto.findMany({
+            const produtos = await prisma.produto.findMany({
                 where: {
                     id
                 }
             });
-            
-            if(empresas.length !== 0)
-                return empresas;
+
+            if (produtos.length !== 0) return produtos;
         }
 
+        const search = String(produto);
 
-        
-        const nome = String(produto);
+        console.log("Buscando os produtos com nome: ", search);
 
-        console.log("Buscando os usuários com nome: ", nome);
-        const empresas = await prisma.produto.findMany({
+        const produtos = await prisma.produto.findMany({
             where: {
                 nome: {
-                    contains: nome
+                    contains: search,
                 }
             }
         });
 
-        
-        return empresas;
+        return produtos;
     }
 }
