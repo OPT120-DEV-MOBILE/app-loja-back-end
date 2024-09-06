@@ -24,7 +24,8 @@ export interface UpdateRegisterDTO {
     id: number;
     nome: string;
     email: string;
-    senha: string;
+    senhaNova: string;
+    senhaAntiga: string;
     cpf: string;
     roles: number;
     idEmpresa: number;

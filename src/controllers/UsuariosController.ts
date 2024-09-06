@@ -78,14 +78,15 @@ export class UpdateUserController {
         
         const updateUserUseCase = new UpdateUserUseCase();
 
-        const { id, nome, email, cpf, roles, idEmpresa } = req.body;
+        const { id, nome, senhaAntiga, email, cpf, roles, idEmpresa } = req.body;
 
-        let { senha } = req.body;
+        let { senhaNova  } = req.body;
 
-        if(senha && senha !== '')
-            senha = await bcrypt.hash(senha, 8);
+        if(senhaNova && senhaNova !== ''){
+            senhaNova = await bcrypt.hash(senhaNova, 8);
+        }
         
-        const result = await updateUserUseCase.execute( { id, nome, email, senha, cpf, roles, idEmpresa } ) as any;
+        const result = await updateUserUseCase.execute( { id, nome, email, senhaNova, senhaAntiga, cpf, roles, idEmpresa } ) as any;
         
         result.status = "sucesso"
         result.mensagem = "Usuário atualizado com sucesso!"

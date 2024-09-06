@@ -1,8 +1,10 @@
-import { UpdateRegisterDTO } from "../interface/UpdateRegisterDTO";
+import { UpdateRegisterDTO } from "../interface/UsuariosDTO";
 import { prisma } from "../prisma/client";
+import bcrypt from 'bcrypt';
+
 
 export class UpdateUserUseCase{
-    async execute({ id, nome, email, senha, cpf, roles, idEmpresa }: UpdateRegisterDTO): Promise<Object>{
+    async execute({ id, nome, email, senhaNova, senhaAntiga, cpf, roles, idEmpresa }: UpdateRegisterDTO): Promise<Object>{
 
         let user = await prisma.usuario.findUnique({
             where: {
@@ -14,6 +16,12 @@ export class UpdateUserUseCase{
         if(!user){
             console.log("Usuário não encontrado!");
             throw new Error("Usuário não encontrado!");
+        }
+
+
+        if(senhaAntiga != null && senhaAntiga != '' && !await bcrypt.compare(senhaAntiga, user.senha)){
+            console.log("Senha incorreta");
+            throw new Error("Senha incorreta");
         }
 
         
@@ -34,6 +42,13 @@ export class UpdateUserUseCase{
         }
         
 
+        let senha
+
+        if(senhaNova && senhaNova !== '' && senhaAntiga && senhaAntiga !== '')
+            senha = senhaNova
+        else
+            senha = user.senha
+
 
         user = await prisma.usuario.update({
             where: {
@@ -42,7 +57,7 @@ export class UpdateUserUseCase{
             data: {
                 nome,
                 email,
-                senha: senha || user.senha,
+                senha: senha,
                 cpf,
                 roles,
                 idEmpresa
