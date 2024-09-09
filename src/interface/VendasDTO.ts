@@ -45,4 +45,6 @@ export interface SearchVendasDTO{
 
 export interface RelatorioVendasDTO{
     cpf: string;
+    dataInicio?: string;
+    dataFim?: string;
 }
