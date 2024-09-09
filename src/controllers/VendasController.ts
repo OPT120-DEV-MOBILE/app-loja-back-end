@@ -129,9 +129,9 @@ export class RelatorioVendasFuncionario {
         
         const relatorioVendasFuncionario = new relatorioVendasFuncionarioUseCase();
 
-        const { cpf } = req.query;
+        const { cpf, dataInicio, dataFim } = req.query;
 
-        const venda =  await relatorioVendasFuncionario.execute({ cpf } as RelatorioVendasDTO) as any;
+        const venda =  await relatorioVendasFuncionario.execute({ cpf, dataInicio, dataFim } as RelatorioVendasDTO) as any;
 
         venda.status = "sucesso"
         venda.mensagem = "Vendas listadas com sucesso!"
@@ -145,9 +145,9 @@ export class RelatorioVendasCliente {
         
         const relatorioVendasCliente = new relatorioVendasClienteUseCase();
 
-        const { cpf } = req.query;
+        const { cpf, dataInicio, dataFim } = req.query;
 
-        const venda =  await relatorioVendasCliente.execute({ cpf } as RelatorioVendasDTO) as any;
+        const venda =  await relatorioVendasCliente.execute({ cpf, dataInicio, dataFim } as RelatorioVendasDTO) as any;
 
         venda.status = "sucesso"
         venda.mensagem = "Vendas listadas com sucesso!"

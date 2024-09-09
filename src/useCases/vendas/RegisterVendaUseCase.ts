@@ -12,6 +12,7 @@ export class RegisterVendaUseCase{
                 parcelas,
                 precoParcelado,
                 codigoDesconto,
+                dataVenda: new Date(),
                 ProdutoVenda: {
                     create: produtos.map(produto => ({
                         idProduto: produto.idProduto,
