@@ -82,6 +82,7 @@ model Venda {
   parcelas        Int?
   precoParcelado  Float?
   codigoDesconto  String?
+  dataVenda       DateTime
 
   Funcionario Usuario @relation(name: "VendaFuncionario", fields: [idUsuario], references: [id])
   Cliente Usuario @relation(name: "VendaCliente", fields: [idCliente], references: [id])

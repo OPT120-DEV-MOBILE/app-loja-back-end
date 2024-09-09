@@ -2,26 +2,39 @@ import { prisma } from "../prisma/client";
 import { RelatorioVendasDTO } from "../interface/VendasDTO";
 
 export class relatorioVendasFuncionarioUseCase{
-    async execute({cpf}: RelatorioVendasDTO): Promise<Object>{
+    async execute({cpf, dataInicio, dataFim}: RelatorioVendasDTO): Promise<Object>{
 
+        let condition = {};
+        
         const funcionario = await prisma.usuario.findUnique({
             where: {
                 cpf
             }
-        })
+        });
 
         let idFuncionario = funcionario?.id;
 
+        if(dataInicio && dataFim){
+            condition = {
+                idUsuario: idFuncionario,
+                dataVenda: {
+                    gte: new Date(dataInicio),
+                    lte: new Date(dataFim)
+                }
+            }
+        } else {
+            condition = {
+                idUsuario: idFuncionario
+            }
+        }
+
+
         const vendas = await prisma.venda.findMany({
-            where: {
-              idUsuario: idFuncionario, 
-            },
+            where: condition,
           });
 
         const report = await prisma.venda.aggregate({
-            where: {
-                idUsuario: idFuncionario
-            },
+            where: condition,
             _count: {
                 _all: true
             },
@@ -39,7 +52,7 @@ export class relatorioVendasFuncionarioUseCase{
 }
 
 export class relatorioVendasClienteUseCase{
-    async execute({cpf}: RelatorioVendasDTO): Promise<Object>{
+    async execute({cpf, dataInicio, dataFim}: RelatorioVendasDTO): Promise<Object>{
 
         const cliente = await prisma.usuario.findUnique({
             where: {
@@ -49,17 +62,29 @@ export class relatorioVendasClienteUseCase{
 
         let idCliente = cliente?.id;
 
+        let condition = {};
+
+        if(dataInicio && dataFim){
+            condition = {
+                idCliente: idCliente,
+                dataVenda: {
+                    gte: new Date(dataInicio),
+                    lte: new Date(dataFim)
+                }
+            }
+        } else {
+            condition = {
+                idCliente: idCliente
+            }
+        }
+
 
         const vendas = await prisma.venda.findMany({
-            where: {
-              idCliente: idCliente
-            },
+            where: condition,
           });
 
         const report = await prisma.venda.aggregate({
-            where: {
-                idCliente: idCliente
-            },
+            where: condition,
             _count: {
                 _all: true
             },
