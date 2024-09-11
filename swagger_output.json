@@ -1,0 +1,430 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Loja",
+    "description": "Documentação da API Loja"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Vendas",
+      "description": "Endpoints relacionados a vendas"
+    },
+    {
+      "name": "Produtos",
+      "description": "Endpoints relacionados a produtos"
+    },
+    {
+      "name": "Usuários",
+      "description": "Endpoints relacionados a usuários"
+    },
+    {
+      "name": "Empresas",
+      "description": "Endpoints relacionados a empresas"
+    },
+    {
+      "name": "Roles",
+      "description": "Endpoints relacionados a roles"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/JWTteste": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/getUser": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/empresas/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/empresas/register": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/empresas/update": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/empresas/delete": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/roles/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/produtos/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/produtos/{id}": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/vendas/register": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/vendas/update": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/vendas/delete": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/vendas/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/vendas/getVenda": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/vendas/getVendasUser": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/vendas/relatorio/funcionario": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/vendas/relatorio/cliente": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/vendas/relatorio": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "jwt-access",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  }
+}
