@@ -14,6 +14,7 @@ app.use(routes);
 
 
 
+
 // Função para tratar erros e mostra-lo de forma mais amigável
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if(err instanceof AppError){
