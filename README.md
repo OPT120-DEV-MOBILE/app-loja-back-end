@@ -1,6 +1,6 @@
 # Backend - App Lojas
 
-Este é o backend do aplicativo **App Lojas**, desenvolvido para gerenciar diversos setores de lojas, controlando empresas, funcionários, clientes, produtos e estoque, com controle de vendas e geração de relatórios.
+Esta é a API do backend do aplicativo **App Lojas**, desenvolvido para gerenciamento de lojas, controlando empresas, funcionários, clientes, produtos e estoque, com controle de vendas e geração de relatórios.
 
 ## Tecnologias Utilizadas
 
@@ -9,6 +9,7 @@ Este é o backend do aplicativo **App Lojas**, desenvolvido para gerenciar diver
 - **bcrypt**: Biblioteca para hash de senhas.
 - **dotenv**: Carrega variáveis de ambiente a partir de um arquivo `.env`.
 - **prisma**: ORM para Node.js e TypeScript.
+- **swagger**: Conjunto de ferramentas para documentar rotas da API .
 
 ## Requisitos
 
@@ -50,7 +51,11 @@ SERVER_PORT=SUA_PORTA
 JWT_SECRET=SUA_CHAVE_SECRETA
 ```
 
+Há um arquivo de exemplo, o qual seu conteúdo pode ser copiado para o novo arquivo para fins de teste. Recomendamos a criação de novos parametros para uso real.
+
 ### 4. Execute o gerador de prisma
+
+Crie as tabelas do banco de dados para utilizar o sistema.
 
 ```bash
 npx prisma generate
@@ -64,6 +69,7 @@ yarn prisma generate
 
 ### 5. Execute as migrations
 
+Crie o banco de dados para utilizar o sistema.
 ```bash
 npx prisma migrate dev
 ```
@@ -76,11 +82,15 @@ yarn prisma migrate dev
 
 ### 6. Execute o populate
 
+Popule o banco de dados para iniciar a utilização.
+
 ```bash
 node ./prisma/populate.js
 ```
 
 ### 7. Inicie o servidor
+
+Inicie o servidor e divirta-se.
 
 ```bash
 npm run dev
@@ -101,7 +111,7 @@ Após executar o comando `populate`, o banco de dados será preenchido com dados
 
 ## Documentação
 
-A documentação da API está disponível em [http://localhost:3000/api-docs](http://localhost:3333/api-docs) após iniciar o servidor.
+A documentação da API, lista de rotas e suas utilizações estão disponíveis em [http://localhost:3300/api-docs](http://localhost:3300/api-docs) (porta configurada no .env) após iniciar o servidor.
 
 ## Licença
 

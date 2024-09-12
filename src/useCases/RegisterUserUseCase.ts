@@ -1,4 +1,4 @@
-import { UserRegisterDTO } from "../interface/UserRegisterDTO";
+import { UserRegisterDTO } from "../interface/UsuariosDTO";
 import { prisma } from "../prisma/client";
 
 export class RegisterUserUseCase{

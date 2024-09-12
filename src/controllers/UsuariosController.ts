@@ -19,7 +19,7 @@ export class JWTTesteController {
             mensagem: "JWT válido, acesso permitido"
         };
 
-        return res.status(201).json(result);
+        return res.status(200).json(result);
     }
 }
 
@@ -45,7 +45,7 @@ export class LoginUserController {
         result.JWT = token;
 
 
-        return res.status(201).json(result);
+        return res.status(200).json(result);
     }
 }
 
@@ -111,7 +111,7 @@ export class GetAllUserController {
             "usuarios": usuarios
         }
 
-        return res.status(201).json(result);
+        return res.status(200).json(result);
     }
 }
 
@@ -132,6 +132,6 @@ export class GetUserController {
             "usuarios": usuario
         }
 
-        return res.status(201).json(result);
+        return res.status(200).json(result);
     }
 }
